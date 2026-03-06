@@ -82,13 +82,59 @@
 
         <!-- Contenido vacío -->
         <div class="p-6">
-          <div class="bg-white rounded-lg shadow p-12 text-center">
-            <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <h2 class="mt-4 text-xl font-medium text-gray-900">Módulo de Clientes</h2>
-            <p class="mt-2 text-gray-500">Aquí se mostrarán los clientes cuando conectes tu API</p>
-          </div>
+<div class="p-6">
+
+  <div class="bg-white rounded-lg shadow overflow-x-auto">
+
+    <table class="min-w-full divide-y divide-gray-200">
+
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Apellido</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">URL</th>
+        </tr>
+      </thead>
+
+      <tbody class="bg-white divide-y divide-gray-200">
+
+        @for (cliente of clientes; track cliente.id) {
+
+        <tr class="hover:bg-gray-50">
+
+          <td class="px-6 py-4">{{cliente.nombre}}</td>
+          <td class="px-6 py-4">{{cliente.apellido}}</td>
+          <td class="px-6 py-4">{{cliente.email}}</td>
+          <td class="px-6 py-4">{{cliente.telefono}}</td>
+
+          <td class="px-6 py-4">
+            {{cliente.createdAt | date:'short'}}
+          </td>
+
+          <td class="px-6 py-4">
+            <a 
+              [href]="cliente.url"
+              target="_blank"
+              class="text-blue-600 hover:underline"
+            >
+              Ver enlace
+            </a>
+          </td>
+
+        </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
         </div>
       </main>
     </div>

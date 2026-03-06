@@ -29,7 +29,7 @@ export interface ApiResponse {
   providedIn: 'root'
 })
 export class DatosService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://consentimiento-dedikall-backend.vercel.app';
 
   constructor(private http: HttpClient) {}
 
