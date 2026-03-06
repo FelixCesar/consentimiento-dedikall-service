@@ -28,9 +28,7 @@ export class ClientesService {
 
   constructor(private http: HttpClient) {}
 
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get<ApiResponse>(this.apiUrl).pipe(
-      map(response => response.data)
-    );
-  }
+getClientes(): Observable<any> {
+  return this.http.get(this.apiUrl);
+}
 }

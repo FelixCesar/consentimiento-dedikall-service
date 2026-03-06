@@ -6,6 +6,7 @@ import { ClientesService, Cliente } from '../services/clientes.service';
 
 @Component({
   selector: 'app-panel',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './panel.html',
   styleUrl: './panel.css',
@@ -28,9 +29,9 @@ export class Panel implements OnInit {
 
 obtenerClientes() {
   this.clientesService.getClientes().subscribe({
-    next: (clientes) => {
-      this.clientes = clientes; 
-      console.log('Clientes:', this.clientes);
+    next: (res) => {
+      console.log('Respuesta completa API:', res);
+      this.clientes = res.data;
     },
     error: (error) => {
       console.error('Error:', error);
