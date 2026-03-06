@@ -134,7 +134,7 @@ import { DatosService, DatosForm } from '../services/datos.service';
               </div>
               <div class="ml-3 text-sm">
                 <label class="font-medium text-gray-700">
-                  Consiento el tratamiento de mis datos en los términos establecidos en la política de privacidad de SYNERGY <span class="text-red-500">*</span>
+                  Consiento el tratamiento de mis datos en los términos establecidos en la política de privacidad de DEDIKALL <span class="text-red-500">*</span>
                 </label>
               </div>
             </div>
@@ -152,7 +152,7 @@ import { DatosService, DatosForm } from '../services/datos.service';
               </div>
               <div class="ml-3 text-sm">
                 <label class="font-medium text-gray-700">
-                  Acepto recibir comunicaciones comerciales personalizadas por parte de SYNERGY acorde a lo establecido en la política de privacidad
+                  Acepto recibir comunicaciones comerciales personalizadas por parte de DEDIKALL acorde a lo establecido en la política de privacidad
                 </label>
               </div>
             </div>
