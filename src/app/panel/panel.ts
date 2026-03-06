@@ -26,11 +26,17 @@ export class Panel implements OnInit {
     this.obtenerClientes();
   }
 
-  obtenerClientes() {
-    this.clientesService.getClientes().subscribe((resp:any)=>{
-      this.clientes = resp.data;
-    });
-  }
+obtenerClientes() {
+  this.clientesService.getClientes().subscribe({
+    next: (clientes) => {
+      this.clientes = clientes; 
+      console.log('Clientes:', this.clientes);
+    },
+    error: (error) => {
+      console.error('Error:', error);
+    }
+  });
+}
 
   toggleSidebar() {
     this.sidebarCollapsed = !this.sidebarCollapsed;
