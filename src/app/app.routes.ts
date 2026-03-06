@@ -26,10 +26,11 @@ export const routes: Routes = [
       component: Enviado
 
   },
-  {
-    path: 'datos/:id', component: VerDatosComponent
-
-  },
+{
+  path: 'datos/:id',
+  loadComponent: () =>
+    import('./ver-datos/ver-datos').then(m => m.VerDatosComponent)
+},
   {
     path: '**',
     redirectTo: ''
