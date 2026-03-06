@@ -11,20 +11,33 @@ export interface DatosForm {
   aceptoComunicaciones: boolean;
 }
 
+export interface ApiResponse {
+  data: {
+    id: string;
+    nombre: string;
+    apellido: string;
+    email: string;
+    telefono: string;
+    consiento: boolean;
+    aceptoComunicaciones: boolean;
+    createdAt: string;
+    url: string;
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class DatosService {
-  private apiUrl = 'http://localhost:3000/datos';
+  private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {
-    console.log('DatosService inicializado');
-  }
+  constructor(private http: HttpClient) {}
 
   guardarDatos(datos: DatosForm): Observable<any> {
-    console.log('Enviando petición POST a:', this.apiUrl);
-    console.log('Datos a guardar:', datos);
-    
-    return this.http.post(this.apiUrl, datos);
+    return this.http.post(`${this.apiUrl}/datos`, datos);
+  }
+
+  obtenerDatosPorId(id: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.apiUrl}/datos/${id}`);
   }
 }

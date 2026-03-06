@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DatosService, DatosForm } from '../services/datos.service';
 
@@ -31,12 +32,14 @@ import { DatosService, DatosForm } from '../services/datos.service';
       </div>
 
       <div class="max-w-3xl mx-auto">
-        <!-- Header con logo -->
+        <!-- Header con logo como imagen -->
         <div class="text-center mb-8">
-          <h1 class="text-4xl font-bold text-gray-900">
-            <span class="text-blue-600">#</span> Synergy
-          </h1>
-          <p class="text-2xl font-light text-gray-600 mt-2">TELECOM</p>
+          <img 
+            src="ddk.png" 
+            alt="Dedikall" 
+            class="h-56 mx-auto"
+          >
+
         </div>
 
         <!-- Descripción -->
@@ -198,14 +201,6 @@ import { DatosService, DatosForm } from '../services/datos.service';
           </div>
         </form>
 
-        <!-- Footer con distribuidores -->
-        <div class="mt-8 text-center text-sm text-gray-500">
-          <p class="mb-2">Distribuidor Autorizado Vodafone</p>
-          <div class="flex justify-center space-x-4">
-            <span>Lowi</span>
-            <span>acta digital digital</span>
-          </div>
-        </div>
       </div>
     </div>
   `,
@@ -226,6 +221,7 @@ import { DatosService, DatosForm } from '../services/datos.service';
   `]
 })
 export class Datos {
+  
   formData: DatosForm = {
     nombre: '',
     apellido: '',
@@ -239,7 +235,7 @@ export class Datos {
   enviado = false;
   errorMessage = '';
 
-  constructor(private datosService: DatosService) {}
+  constructor(  private datosService: DatosService, private router: Router) {}
 
   onSubmit() {
     // Prevenir múltiples envíos
@@ -250,29 +246,27 @@ export class Datos {
 
     console.log('Enviando datos:', this.formData);
 
-    this.datosService.guardarDatos(this.formData).subscribe({
-      next: (response) => {
-        console.log('RESPUESTA EXITOSA - Datos guardados en BD:', response);
-        
-        // Cambiar estados
-        this.isLoading = false;
-        this.enviado = true;
-        
-        console.log('Estados actualizados:', { isLoading: this.isLoading, enviado: this.enviado });
-      },
-      error: (error) => {
-        console.error('ERROR - No se guardó en BD:', error);
-        
-        this.isLoading = false;
-        this.enviado = false;
-        
-        if (error.status === 0) {
-          this.errorMessage = 'No se pudo conectar con el servidor';
-        } else {
-          this.errorMessage = error.error?.message || 'Error al guardar en la base de datos';
-        }
-      }
-    });
+this.datosService.guardarDatos(this.formData).subscribe({
+  next: (response) => {
+    console.log('Datos guardados:', response);
+
+    this.isLoading = false;
+
+    // REDIRECCIÓN
+    this.router.navigate(['/enviado']);
+  },
+  error: (error) => {
+    console.error(error);
+
+    this.isLoading = false;
+
+    if (error.status === 0) {
+      this.errorMessage = 'No se pudo conectar con el servidor';
+    } else {
+      this.errorMessage = 'Error al guardar en la base de datos';
+    }
+  }
+});
   }
 
   volverAlFormulario() {
