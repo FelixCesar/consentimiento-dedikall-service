@@ -1,0 +1,6 @@
+ :host {
+      display: block;
+    }
+    .group:hover .group-hover\\:opacity-100 {
+      opacity: 1;
+    }
