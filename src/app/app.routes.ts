@@ -5,10 +5,13 @@ import { Datos } from './datos/datos';
 import { Enviado } from './pages/enviado/enviado';
 import { VerDatosComponent } from './ver-datos/ver-datos';
 
+
+
 export const routes: Routes = [
   {
     path: '',
     component: Auth
+    
   },
   {
     path: 'panel',
