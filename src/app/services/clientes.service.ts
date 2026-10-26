@@ -1,7 +1,7 @@
 // En clientes.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface Cliente {
   id: string;
@@ -28,7 +28,7 @@ export class ClientesService {
 
   constructor(private http: HttpClient) {}
 
-getClientes(): Observable<any> {
-  return this.http.get(this.apiUrl);
+getClientes(): Observable<ApiResponse> {
+  return this.http.get<ApiResponse>(this.apiUrl);
 }
 }

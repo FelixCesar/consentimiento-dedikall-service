@@ -16,6 +16,8 @@ export class Panel implements OnInit {
   sidebarCollapsed = false;
 
   clientes: Cliente[] = [];
+  cargando = true;
+  error = '';
 
   constructor(
     private authService: AuthService,
@@ -28,13 +30,16 @@ export class Panel implements OnInit {
   }
 
 obtenerClientes() {
+  this.cargando = true;
+  this.error = '';
   this.clientesService.getClientes().subscribe({
     next: (res) => {
-      console.log('Respuesta completa API:', res);
       this.clientes = res.data;
+      this.cargando = false;
     },
     error: (error) => {
-      console.error('Error:', error);
+      this.cargando = false;
+      this.error = 'No se pudieron cargar los clientes. Inténtalo de nuevo.';
     }
   });
 }

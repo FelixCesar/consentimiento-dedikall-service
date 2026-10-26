@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
@@ -6,6 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  private platformId = inject(PLATFORM_ID);
   private apiUrl = 'https://consentimiento-dedikall-backend.vercel.app';
 
   constructor(private http: HttpClient) {}
@@ -13,7 +15,10 @@ export class AuthService {
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap((response: any) => {
-        if (response.token) {
+        if (!response.token || typeof response.token !== 'string') {
+          throw new Error('Respuesta de autenticación inválida');
+        }
+        if (isPlatformBrowser(this.platformId)) {
           localStorage.setItem('token', response.token);
         }
       })
@@ -21,10 +26,10 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    if (isPlatformBrowser(this.platformId)) localStorage.removeItem('token');
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return isPlatformBrowser(this.platformId) ? localStorage.getItem('token') : null;
   }
 }

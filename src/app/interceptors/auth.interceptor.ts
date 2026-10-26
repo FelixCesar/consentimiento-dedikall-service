@@ -9,7 +9,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   
-  const token = authService.getToken();
+  const isApiRequest = req.url === 'https://consentimiento-dedikall-backend.vercel.app/datos' ||
+    req.url.startsWith('https://consentimiento-dedikall-backend.vercel.app/datos/');
+  const token = isApiRequest ? authService.getToken() : null;
   
   if (token) {
     const cloned = req.clone({
@@ -21,7 +23,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         if (error.status === 401) {
           // Token expirado o inválido
           authService.logout();
-          router.navigate(['/login']);
+          router.navigate(['/']);
         }
         return throwError(() => error);
       })

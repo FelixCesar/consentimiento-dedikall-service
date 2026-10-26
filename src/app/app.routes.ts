@@ -3,7 +3,7 @@ import { Auth } from './auth/auth';
 import { Panel } from './panel/panel';
 import { Datos } from './datos/datos';
 import { Enviado } from './pages/enviado/enviado';
-import { VerDatosComponent } from './ver-datos/ver-datos';
+import { authGuard } from './guards/auth.guard';
 
 
 
@@ -15,7 +15,8 @@ export const routes: Routes = [
   },
   {
     path: 'panel',
-    component: Panel
+    component: Panel,
+    canActivate: [authGuard]
   },
   {
     path: 'datos',

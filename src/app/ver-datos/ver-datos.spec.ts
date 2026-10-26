@@ -1,17 +1,21 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerDatos } from './ver-datos';
+import { VerDatosComponent } from './ver-datos';
 
-describe('VerDatos', () => {
-  let component: VerDatos;
-  let fixture: ComponentFixture<VerDatos>;
+describe('VerDatosComponent', () => {
+  let component: VerDatosComponent;
+  let fixture: ComponentFixture<VerDatosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerDatos],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
+      imports: [VerDatosComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(VerDatos);
+    fixture = TestBed.createComponent(VerDatosComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

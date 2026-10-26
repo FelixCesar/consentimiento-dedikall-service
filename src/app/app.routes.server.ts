@@ -2,6 +2,7 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
+  { path: 'panel', renderMode: RenderMode.Client },
   {
     path: 'datos/:id', // Tu ruta dinámica
     renderMode: RenderMode.Server // Se renderiza en cada petición

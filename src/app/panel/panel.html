@@ -89,10 +89,15 @@
     </header>
 
     <div class="p-6">
+      <p *ngIf="cargando" role="status" class="p-4">Cargando clientes...</p>
+      <div *ngIf="error" role="alert" class="p-4 text-red-700">
+        {{ error }}
+        <button type="button" (click)="obtenerClientes()" class="underline ml-2">Reintentar</button>
+      </div>
       <div class="bg-white rounded-lg shadow overflow-x-auto">
 
         <!-- SIN DATOS -->
-        <div *ngIf="clientes.length === 0" class="text-center py-12">
+        <div *ngIf="!cargando && !error && clientes.length === 0" class="text-center py-12">
           <p class="text-gray-500">No hay clientes para mostrar</p>
         </div>
 
@@ -124,6 +129,7 @@
                 <a 
                   [href]="cliente.url"
                   target="_blank"
+                  rel="noopener noreferrer"
                   class="text-blue-600 hover:underline"
                 >
                   Ver enlace

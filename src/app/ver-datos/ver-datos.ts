@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatosService } from '../services/datos.service';
+import { DatosService, ApiResponse } from '../services/datos.service';
 
 @Component({
   selector: 'app-ver-datos',
@@ -83,7 +83,7 @@ import { DatosService } from '../services/datos.service';
 export class VerDatosComponent implements OnInit {
 
   id = '';
-  datos: any = null;
+  datos: ApiResponse['data'] | null = null;
 
   cargando = true;
   error = '';
@@ -114,9 +114,8 @@ export class VerDatosComponent implements OnInit {
 
     this.datosService.obtenerDatosPorId(this.id).subscribe({
 
-      next: (response: any) => {
+      next: (response) => {
 
-        console.log("RESPUESTA API:", response);
 
         this.datos = response.data;
 
@@ -126,7 +125,6 @@ export class VerDatosComponent implements OnInit {
 
       error: (err) => {
 
-        console.error(err);
 
         this.error = 'No se pudieron cargar los datos';
 

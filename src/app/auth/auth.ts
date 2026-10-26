@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -26,18 +26,17 @@ export class Auth {
     private router: Router
   ) {}
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
+    if (this.isLoading || form.invalid) return;
     this.isLoading = true;
     this.errorMessage = '';
 
     this.authService.login(this.credentials).subscribe({
       next: (response) => {
-        console.log('Login exitoso', response);
         this.router.navigate(['/panel']);
       },
       error: (error) => {
-        console.error('Error en login', error);
-        this.errorMessage = 'Credenciales incorrectas';
+        this.errorMessage = error.status === 401 ? 'Credenciales incorrectas' : 'No se pudo iniciar sesión. Inténtalo de nuevo.';
         this.isLoading = false;
       }
     });
